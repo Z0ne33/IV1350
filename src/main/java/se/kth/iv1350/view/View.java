@@ -38,6 +38,7 @@ public class View {
         contr.fetchItem("BigWheel Oatmeal", 3);
         contr.fetchItem("apple", 1);
         contr.fetchItem("orange", 1);
+        contr.fetchItem("BigWheel Oatmeal", 1);
 
         for (StoreItem item : contr.ShoppingCartItem()) {
             out.println("--------------  " + item.getItemDetails().getName().toUpperCase() + "  ----------------");
