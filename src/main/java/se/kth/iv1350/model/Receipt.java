@@ -1,7 +1,6 @@
-package se.kth.iv1350.amazingpos.model;
+package se.kth.iv1350.model;
 
 import java.time.LocalDateTime;
-import java.util.Enumeration;
 
 /**
  * Represents one receipt, which proves the payment of one sale.

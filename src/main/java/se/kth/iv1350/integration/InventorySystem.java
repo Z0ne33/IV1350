@@ -1,8 +1,8 @@
-package se.kth.iv1350.amazingpos.integration;
+package se.kth.iv1350.integration;
 
-import se.kth.iv1350.amazingpos.model.Amount;
-import se.kth.iv1350.amazingpos.model.DTO.ItemDTO;
-import se.kth.iv1350.amazingpos.model.StoreItem;
+import se.kth.iv1350.model.Amount;
+import se.kth.iv1350.model.DTO.ItemDTO;
+import se.kth.iv1350.model.StoreItem;
 
 import java.util.Collection;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package se.kth.iv1350.amazingpos.model;
+package se.kth.iv1350.model;
 
 public class Register
 {

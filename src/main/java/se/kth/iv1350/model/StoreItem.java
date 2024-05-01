@@ -1,6 +1,6 @@
-package se.kth.iv1350.amazingpos.model;
+package se.kth.iv1350.model;
 
-import se.kth.iv1350.amazingpos.model.DTO.ItemDTO;
+import se.kth.iv1350.model.DTO.ItemDTO;
 
 public class StoreItem {
 

@@ -1,7 +1,8 @@
-package se.kth.iv1350.amazingpos.model.DTO;
+package se.kth.iv1350.model.DTO;
 
-import se.kth.iv1350.amazingpos.model.Amount;
-import se.kth.iv1350.amazingpos.model.StoreItem;
+import se.kth.iv1350.model.Amount;
+import se.kth.iv1350.model.StoreItem;
+import se.kth.iv1350.model.DTO.ItemDTO;
 
 import java.time.LocalTime;
 import java.util.*;

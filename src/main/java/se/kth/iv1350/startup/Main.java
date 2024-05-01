@@ -1,9 +1,7 @@
-package se.kth.iv1350.amazingpos.startup;
+package se.kth.iv1350.startup;
 
-import se.kth.iv1350.amazingpos.controller.Controller;
-import se.kth.iv1350.amazingpos.view.View;
-
-import java.util.Arrays;
+import se.kth.iv1350.controller.Controller;
+import se.kth.iv1350.view.View;
 
 /**
  * Starts the entire application, contains the main method used to start the application.
@@ -15,6 +13,7 @@ public class Main {
      * @param args The application does not take any command line parameters.
      */
     public static void main(String[] args) {
+
         Controller contr = new Controller();
         View view = new View(contr);
         view.Execution();

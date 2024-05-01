@@ -1,9 +1,12 @@
-package se.kth.iv1350.amazingpos.controller;
+package se.kth.iv1350.controller;
 
-import se.kth.iv1350.amazingpos.integration.AccountingSystem;
-import se.kth.iv1350.amazingpos.integration.InventorySystem;
-import se.kth.iv1350.amazingpos.integration.Printer;
-import se.kth.iv1350.amazingpos.model.*;
+import se.kth.iv1350.integration.AccountingSystem;
+import se.kth.iv1350.integration.InventorySystem;
+import se.kth.iv1350.integration.Printer;
+import se.kth.iv1350.model.Amount;
+import se.kth.iv1350.model.Receipt;
+import se.kth.iv1350.model.Sale;
+import se.kth.iv1350.model.StoreItem;
 
 import java.util.Collection;
 
@@ -39,7 +42,7 @@ public class Controller {
         accounting.updateAccounting(sale);
 
     }
-    public Amount payment(Amount paidAmount){
+    public Amount payment( Amount paidAmount){
 
         return sale.addPayment(paidAmount);
     }

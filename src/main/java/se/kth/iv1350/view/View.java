@@ -1,8 +1,8 @@
-package se.kth.iv1350.amazingpos.view;
+package se.kth.iv1350.view;
 
-import se.kth.iv1350.amazingpos.controller.Controller;
-import se.kth.iv1350.amazingpos.model.Amount;
-import se.kth.iv1350.amazingpos.model.StoreItem;
+import se.kth.iv1350.controller.Controller;
+import se.kth.iv1350.model.Amount;
+import se.kth.iv1350.model.StoreItem;
 
 import static java.lang.System.out;
 

@@ -1,6 +1,6 @@
-package se.kth.iv1350.amazingpos.model;
+package se.kth.iv1350.model;
 
-import se.kth.iv1350.amazingpos.model.DTO.SaleDTO;
+import se.kth.iv1350.model.DTO.SaleDTO;
 
 /**
  * One single sale made by one single customer and payed with one payment.

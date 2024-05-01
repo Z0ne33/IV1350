@@ -1,6 +1,6 @@
-package se.kth.iv1350.amazingpos.integration;
+package se.kth.iv1350.integration;
 
-import se.kth.iv1350.amazingpos.model.Sale;
+import se.kth.iv1350.model.Sale;
 
 import java.util.ArrayList;
 
