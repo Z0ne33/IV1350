@@ -7,13 +7,22 @@ import java.time.LocalDateTime;
  */
 public class Receipt {
 
+
      Sale saleDetails;
 
-    Receipt(Sale saleDetails) {
+    /**
+     *  Constructs the sale Obj
+     *
+     * @param saleDetails represent the sale Obj
+     */
+   public Receipt(Sale saleDetails) {
          this.saleDetails = saleDetails;
 
-    }
+   }
 
+    /**
+     * This is where the reciept is constructed meaning this is where it is created
+     */
     public String createReceiptString() {
         StringBuilder builder = new StringBuilder();
         appendLine(builder, "----------- BEGIN RECEIPT --------------");

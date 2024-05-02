@@ -20,6 +20,12 @@ public class Sale {
        saleDetails = new SaleDTO();
        register = new Register();
     }
+    /**
+     * function adds and item the shopping cart if it already is present increase amount
+     *
+     * @param item is the item that is being added
+     * @param quantity is the quantity of items that you want to add
+     */
     public void addItem( StoreItem item, int quantity ){
         if (saleDetails.checkItem(item.getItemID())){
             saleDetails.increaseAmount(item, quantity);
@@ -31,9 +37,17 @@ public class Sale {
 
     }
 
+    /**
+     * return SaleDTO object that holds saleDetails
+     */
     public SaleDTO getSaleDetails(){
         return saleDetails;
     }
+    /**
+     * function sets total and pays adds payment to register and returns the change
+     *
+     * @param payment is the amount that was paid
+     */
     public Amount addPayment(Amount payment){
         saleDetails.setTotal();
         this.pay = new Payment(payment, saleDetails.getTotalPrice());
@@ -41,9 +55,16 @@ public class Sale {
         return pay.getChange();
 
     }
+    /**
+     * returns the pay object that represents the amount that was paid
+     */
     public Payment getPayment(){
         return pay;
     }
+
+    /**
+     * constructs receipt and after that returns it
+     */
     public Receipt createReceipt(){
         receipt = new Receipt(this);
         return receipt;

@@ -18,6 +18,10 @@ public class Controller {
     private Printer printer;
     private InventorySystem inventory;
     private AccountingSystem accounting;
+
+    /**
+     * Is Used for Creating a new contr obj
+     */
     public Controller(){
         this.inventory = new InventorySystem();
         this.accounting = new AccountingSystem();
@@ -33,18 +37,39 @@ public class Controller {
         inventory.createItem();
 
     }
+    /**
+     *
+     *  Function return a Collection of StoreItems that it represent All items That was added to the cart
+     *
+     */
     public Collection<StoreItem> ShoppingCartItem(){
-        return sale.getSaleDetails().getShoppingCart().values();
+        return sale.getSaleDetails().getAllItems();
 
     }
+    /**
+     *
+     * The Function is called when the Sale has ended and updates Inventory and accounting
+     */
     public void endSale(){
         inventory.updateInventory(ShoppingCartItem());
         accounting.updateAccounting(sale);
 
     }
+    /**
+     * The function is called from Main and tells the contr the paid Amount that is sent to sale
+     *
+     * @param paidAmount is an Amount Obj and takes in the currency and amount that was paid for the sale
+     */
+
     public Amount payment( Amount paidAmount){
         return sale.addPayment(paidAmount);
     }
+    /**
+     * The main method used to start the entire application.
+     *
+     * @param itemID is the Item id that is going to be used in order to fetch Item
+     * @param quantity represent the quantity of the item that is needed from the customer
+     */
 
     public void fetchItem( String itemID,int quantity){
 
@@ -54,12 +79,19 @@ public class Controller {
 
 
     }
+
+    /**
+     * Function takes the reciept that was cconstructed in sale and sends it to the printer
+     */
     public void printReciept(){
        Receipt receipt = sale.createReceipt();
        printer.PrintReciept(receipt);
 
     }
 
+    /**
+     * Sends Sale mainly used during unit Test
+     */
     public Sale getSale() {
         return sale;
     }

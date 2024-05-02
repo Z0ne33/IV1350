@@ -73,12 +73,6 @@ public class View {
         builder.append(line);
         builder.append("\n");
     }
-    private void endSection(StringBuilder builder) {
-        builder.append("\n");
-    }
-
-
-
 
 
 }

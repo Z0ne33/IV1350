@@ -16,7 +16,11 @@ public class SaleDTO
     private LocalTime saleTime;
     private Map<String, StoreItem> shoppingCart;
 
-
+    /**
+     * The main method used to start the entire application.
+     *
+     * @param args The application does not take any command line parameters.
+     */
 
     public SaleDTO(){
         saleTime = LocalTime.now();
@@ -27,6 +31,11 @@ public class SaleDTO
         totalPriceNoVAT = new Amount(0, "SEK");
 
     }
+    /**
+     * The main method used to start the entire application.
+     *
+     * @param args The application does not take any command line parameters.
+     */
     public void setTotal(){
 
         for (StoreItem item : getAllItems()) {
@@ -36,17 +45,54 @@ public class SaleDTO
         totalVAT = totalPrice.minus(totalPriceNoVAT);
 
     }
+
+    /**
+     * return totalPrice
+     */
     public Amount getTotalPrice() {
         return totalPrice;
     }
+
+    /**
+     * return totalVAT
+     */
     public Amount getTotalVAT() {
         return totalVAT;
     }
-    public Map<String, StoreItem> getShoppingCart() {return shoppingCart;}
+
+
+    /**
+     * returns a collection all items Present in the Shopping cart
+     */
     public Collection<StoreItem> getAllItems(){return shoppingCart.values();}
+
+    /**
+     * retrieves item present in the shopping Cart by using itemID
+     *
+     * @param itemId is used for searching the item
+     */
     public StoreItem getShoppingCartItemById(String itemId) {return shoppingCart.get(itemId);}
+
+    /**
+     * function adds Item to the Shopping Cart
+     *
+     * @param item is the item that will be added into The ShoppingCart
+     */
     public void addToCart( StoreItem item){shoppingCart.put(item.getItemID(), item);}
+
+    /**
+     * Checks if itemID is present in the shoppingCart
+     *
+     * @param ID is used for searching the Item
+     */
     public boolean checkItem(String ID){return shoppingCart.containsKey(ID);}
+
+    /**
+     * Function takes in item searches for it and increases its quantity
+     *
+     * @param item is the item that is taken in
+     * @param quantity is the quantity that is taken in
+     */
     public void increaseAmount(StoreItem item , int quantity){getShoppingCartItemById(item.getItemID()).setQuantity(item.getQuantity() + quantity);
     }
 }
