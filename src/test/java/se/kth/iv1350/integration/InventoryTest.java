@@ -48,6 +48,16 @@ public class InventoryTest {
 
     }
     @Test
+    public void updateInventoryRemoveItemTest() {
+        String itemID = "apple";
+        testItem1.setQuantity(8);
+        instanceToTest.updateInventory(boughtItemsTest);
+        boolean results = instanceToTest.checkItem(itemID);
+        boolean expResult = false;
+        assertEquals(expResult, results );
+
+    }
+    @Test
     public void testRemoveItem() {
         String removeTest = "apple";
         instanceToTest.removeItem(removeTest);
