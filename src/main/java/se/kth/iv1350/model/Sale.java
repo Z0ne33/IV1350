@@ -40,7 +40,6 @@ public class Sale {
         register.addToRegister(pay);
         return pay.getChange();
 
-
     }
     public Payment getPayment(){
         return pay;

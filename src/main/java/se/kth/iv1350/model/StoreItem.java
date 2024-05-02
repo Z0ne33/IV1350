@@ -30,11 +30,9 @@ public class StoreItem {
     public void setQuantity(int newQuantity){
         quanity = newQuantity;
     }
-
     public double getVatRate() {
         return vatRate;
     }
-
     @Override
     public boolean equals( Object obj ) {
         if(obj == null)

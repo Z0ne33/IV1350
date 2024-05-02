@@ -43,16 +43,15 @@ public class Controller {
 
     }
     public Amount payment( Amount paidAmount){
-
         return sale.addPayment(paidAmount);
     }
 
-    public StoreItem fetchItem( String itemID,int quantity){
+    public void fetchItem( String itemID,int quantity){
 
-        if (inventory.checkItem(itemID) || inventory.getItemById(itemID).getQuantity() > quantity){
+        if (inventory.checkItem(itemID) && inventory.getItemById(itemID).getQuantity() > quantity){
             sale.addItem(inventory.getItemById(itemID), quantity);
         }
-        return inventory.getItemById(itemID);
+
 
     }
     public void printReciept(){
@@ -61,6 +60,7 @@ public class Controller {
 
     }
 
-    
-
+    public Sale getSale() {
+        return sale;
+    }
 }

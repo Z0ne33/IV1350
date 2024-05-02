@@ -9,8 +9,6 @@ public class ItemDTO
     private String name;
     private String description;
 
-
-
     public ItemDTO(String name , Amount price, String desc){
         this.name = name;
         this.price = price;

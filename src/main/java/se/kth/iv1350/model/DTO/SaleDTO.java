@@ -20,42 +20,30 @@ public class SaleDTO
 
     public SaleDTO(){
         saleTime = LocalTime.now();
-        totalPrice = new Amount(0);
+        totalPrice = new Amount(0, "SEK");
         paidAmount = new Amount(0);
         shoppingCart = new HashMap<>();
         totalVAT = new Amount(0);
-        totalPriceNoVAT = new Amount(0);
+        totalPriceNoVAT = new Amount(0, "SEK");
 
-
-
-    }
-    public void updatePaidAmount(Amount amount){
-
-    }
-
-    public Amount getTotalPrice() {
-        return totalPrice;
     }
     public void setTotal(){
 
         for (StoreItem item : getAllItems()) {
-            totalPrice.increaseAmount((item.getItemDetails().getPrice().getAmount() * (1 + item.getVatRate())) * item.getQuantity() );
-            totalPriceNoVAT.increaseAmount(item.getItemDetails().getPrice().getAmount() * item.getQuantity() );
+            totalPrice = totalPrice.addition(new Amount((item.getItemDetails().getPrice().getAmount() * (1 + item.getVatRate())) * item.getQuantity()) );
+            totalPriceNoVAT = totalPriceNoVAT.addition(new Amount(item.getItemDetails().getPrice().getAmount() * item.getQuantity()) );
         }
-        totalVAT.setAmount(totalPrice.getAmount() - totalPriceNoVAT.getAmount());
+        totalVAT = totalPrice.minus(totalPriceNoVAT);
 
     }
-
-
-
+    public Amount getTotalPrice() {
+        return totalPrice;
+    }
     public Amount getTotalVAT() {
         return totalVAT;
     }
     public Map<String, StoreItem> getShoppingCart() {return shoppingCart;}
-    public Collection<StoreItem> getAllItems(){
-
-        return shoppingCart.values();
-    }
+    public Collection<StoreItem> getAllItems(){return shoppingCart.values();}
     public StoreItem getShoppingCartItemById(String itemId) {return shoppingCart.get(itemId);}
     public void addToCart( StoreItem item){shoppingCart.put(item.getItemID(), item);}
     public boolean checkItem(String ID){return shoppingCart.containsKey(ID);}

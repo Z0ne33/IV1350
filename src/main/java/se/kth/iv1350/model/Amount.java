@@ -5,28 +5,30 @@ import java.util.Currency;
 public class Amount
 {
     private Currency currency;
-    private double amount;
+    private final double amount;
 
     public Amount( double amount, String currency){
         this.amount = amount;
         this.currency = Currency.getInstance(currency);
+
+
     }
+
     public Amount(double amount){
         this.amount = amount;
     }
     public Amount minus(Amount other) {
-        return new Amount(amount - other.amount);
+        if (this.currency != null){
+            return new Amount((amount - other.amount), this.currency.getCurrencyCode());
+        }
+        return new Amount((amount - other.amount));
+
     }
     public Amount addition(Amount other){
-        return new Amount(amount + other.amount);
-    }
-
-    public void increaseAmount( double amount ) {
-        this.amount += amount;
-    }
-
-    public void setAmount( double amount ) {
-        this.amount = amount;
+        if (this.currency != null){
+            return new Amount((amount + other.amount), this.currency.getCurrencyCode());
+        }
+        return new Amount((amount + other.amount));
     }
 
     public Currency getCurrency() {
@@ -35,5 +37,17 @@ public class Amount
 
     public double getAmount() {
         return amount;
+    }
+
+    @Override
+    public boolean equals( Object obj ) {
+
+        if (!(obj instanceof Amount)) {
+            return false;
+        }
+
+        Amount otherAmount = (Amount) obj;
+        return this.amount == otherAmount.amount;
+
     }
 }

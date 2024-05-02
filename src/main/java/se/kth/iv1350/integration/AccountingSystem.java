@@ -13,4 +13,7 @@ public class AccountingSystem {
     public void updateAccounting(Sale sale){
         sales.add(sale);
     }
+    public ArrayList<Sale> showAccounting(){
+        return sales;
+    }
 }

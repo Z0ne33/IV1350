@@ -23,4 +23,6 @@ public class Payment {
     public Amount getPaidAmt() {
         return paidAmt;
     }
+
+
 }
