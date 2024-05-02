@@ -65,6 +65,9 @@ public class InventorySystem
     /**
      * updateInventory removes and increases the quantity or Item in the inventory
      *
+     * If new quantity is less than or equal to 0, remove the item
+     * If new quantity is positive, update the item in the map
+     *
      * @param boughtItems represent ShoppingCart during the sale
      */
     public void updateInventory( Collection<StoreItem> boughtItems) {
@@ -73,10 +76,8 @@ public class InventorySystem
             StoreItem itemInStore = getItemById(item.getItemID());
             if (item.equals(itemInStore)){
                 if (itemInStore.getQuantity() == item.getQuantity()) {
-                    // If new quantity is less than or equal to 0, remove the item
                     removeItem(item.getItemID());
                 } else {
-                    // If new quantity is positive, update the item in the map
                     itemInStore.setQuantity(itemInStore.getQuantity() - item.getQuantity() );
 
                 }
