@@ -16,7 +16,8 @@ public class AccountingTest {
 
     @BeforeEach
     public void setUp() {
-        instanceToTest = new AccountingSystem();
+        instanceToTest = AccountingSystem.getInstance();
+        instanceToTest.setAccountingStatus("online");
         sale = new Sale();
     }
     @AfterEach
@@ -30,7 +31,17 @@ public class AccountingTest {
         instanceToTest.updateAccounting(sale);
         boolean expResults = true;
         assertEquals(expResults, instanceToTest.showAccounting().contains(sale));
-
     }
+    @Test
+    public void testDatabaseNotRunning(){
+        instanceToTest.setAccountingStatus("offline");
+        try {
+            instanceToTest.showAccounting();
+            fail("Could showed accounting");
+        } catch (DatabaseUnavailableException e) {
+            assertTrue(e.getMessage().contains("ERROR"));
+        }
+    }
+
 
 }

@@ -10,6 +10,7 @@ public class Receipt {
 
      Sale saleDetails;
 
+
     /**
      *  Constructs the sale Obj
      *
@@ -17,6 +18,7 @@ public class Receipt {
      */
    public Receipt(Sale saleDetails) {
          this.saleDetails = saleDetails;
+
 
    }
 
@@ -36,7 +38,10 @@ public class Receipt {
             builder.append(" \t" + item.getQuantity()  +" x " + item.getItemDetails().getPrice().getAmount());
             appendLine(builder, " \t" + item.getQuantity() * item.getItemDetails().getPrice().getAmount() + " " + item.getItemDetails().getPrice().getCurrency().getCurrencyCode());
         }
-
+        if (saleDetails.getSignalDiscount()){
+            builder.append(" \nDiscount: ");
+            appendLine(builder, Double.toString(saleDetails.getDiscount().getAmount()));
+        }
         builder.append(" \nTotal: ");
         appendLine(builder, Double.toString(saleDetails.getPayment().getTotalCost().getAmount()));
         builder.append("Total VAT: ");

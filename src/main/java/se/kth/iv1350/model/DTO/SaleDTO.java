@@ -15,11 +15,11 @@ public class SaleDTO
     private Amount totalVAT;
     private LocalTime saleTime;
     private Map<String, StoreItem> shoppingCart;
+    private ArrayList<String> costumers;
+    private String currentCustomer;
 
     /**
-     * The main method used to start the entire application.
-     *
-     * @param args The application does not take any command line parameters.
+     * Constructor that is called when an object of SaleDTO is created
      */
 
     public SaleDTO(){
@@ -29,21 +29,42 @@ public class SaleDTO
         shoppingCart = new HashMap<>();
         totalVAT = new Amount(0);
         totalPriceNoVAT = new Amount(0, "SEK");
+        costumers = new ArrayList<>();
+        currentCustomer = "";
 
     }
     /**
-     * The main method used to start the entire application.
-     *
-     * @param args The application does not take any command line parameters.
+     * we set the TotalVAT
      */
-    public void setTotal(){
+    public void setTotalVAT( Amount totalVAT ) {
+        this.totalVAT = totalVAT;
+    }
+    /**
+     * we set the TotalpriceNoVAT
+     */
+    public void setTotalPriceNoVAT( Amount totalPriceNoVAT ) {
+        this.totalPriceNoVAT = totalPriceNoVAT;
+    }
 
-        for (StoreItem item : getAllItems()) {
-            totalPrice = totalPrice.addition(new Amount((item.getItemDetails().getPrice().getAmount() * (1 + item.getVatRate())) * item.getQuantity()) );
-            totalPriceNoVAT = totalPriceNoVAT.addition(new Amount(item.getItemDetails().getPrice().getAmount() * item.getQuantity()) );
-        }
-        totalVAT = totalPrice.minus(totalPriceNoVAT);
+    /**
+     * we set the totalPrice
+     */
+    public void setTotalPrice( Amount totalPrice ) {
+        this.totalPrice = totalPrice;
+    }
 
+    /**
+     * we get TotalPrice
+     */
+    public Amount getTotalPriceNoVAT() {
+        return totalPriceNoVAT;
+    }
+
+    /**
+     * we add costumers to the list
+     */
+    public void addToCostumers( String costumerID ) {
+        costumers.add(costumerID);
     }
 
     /**
@@ -88,11 +109,23 @@ public class SaleDTO
     public boolean checkItem(String ID){return shoppingCart.containsKey(ID);}
 
     /**
-     * Function takes in item searches for it and increases its quantity
-     *
-     * @param item is the item that is taken in
-     * @param quantity is the quantity that is taken in
+     * we set the current Customer
      */
-    public void increaseAmount(StoreItem item , int quantity){getShoppingCartItemById(item.getItemID()).setQuantity(item.getQuantity() + quantity);
+    public void setCurrentCustomer( String currentCustomer ) {
+        this.currentCustomer = currentCustomer;
+    }
+
+    /**
+     * we get current Customer
+     */
+    public String getCurrentCustomer() {
+        return currentCustomer;
+    }
+
+    /**
+     * we get a list of all Customers
+     */
+    public ArrayList<String> getCostumers() {
+        return costumers;
     }
 }
