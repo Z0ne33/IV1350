@@ -58,7 +58,7 @@ public class ControllerTest {
             assertTrue(e.getMessage().contains("ERROR"));
         }
         catch (OperationFailedException e){
-            assertTrue(e.getMessage().contains("ERROR"));
+            fail("Database was offline");
         }
 
 
