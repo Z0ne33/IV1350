@@ -60,6 +60,7 @@ public class InventorySystem
      * addItem function adds items to the Hashmap
      *
      * @param item takes in the item to add
+     * @throws DatabaseUnavailableException to indicate that the inventory is unavailable
      */
     public void addItem( StoreItem item) {
 
@@ -80,6 +81,7 @@ public class InventorySystem
      * @param itemId is the itemID that is used as a key to retrieve the item
      *
      * @throws InvalidItemException to indicate that an itemID is invalid and then is caught in View
+     * @throws DatabaseUnavailableException to indicate that the status of database is offline
      */
     public StoreItem getItemById(String itemId)  throws InvalidItemException{
 
@@ -98,6 +100,7 @@ public class InventorySystem
      * CheckItem function is used to check if an item exist in the HashMap
      *
      * @param ID is the key that is used for search
+     * @throws DatabaseUnavailableException to indicate that Database is unavailable
      */
     public boolean checkItem(String ID){
         if (inventoryStatus == 1){
@@ -112,6 +115,7 @@ public class InventorySystem
      * function removes item from HashMap
      *
      * @param itemId is the key that is used for search
+     * @throws DatabaseUnavailableException to indicate that the Database is unavailable
      */
     public void removeItem(String itemId) {
         if (inventoryStatus == 1){
@@ -133,6 +137,7 @@ public class InventorySystem
      * @param saleDetails are the saleDetails used during sale
      *
      * @throws InvalidItemException that an ItemID is invalid and that is later on handled in the controller
+     * @throws DatabaseUnavailableException to indicate that the Database is Unavailable
      */
     public void updateInventory( SaleDTO saleDetails ) throws InvalidItemException {
         if (inventoryStatus == 1){

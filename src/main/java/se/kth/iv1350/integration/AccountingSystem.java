@@ -24,6 +24,7 @@ public class AccountingSystem {
      * updates the Arraylist that keeps track of all Sales
      *
      * @param sale is the Sale object that was sent from contr and is added to the Arraylist
+     * @throws DatabaseUnavailableException to indicate that Database is offline
      */
     public void updateAccounting(Sale sale){
         if (accountingStatus == 1){
@@ -50,6 +51,7 @@ public class AccountingSystem {
 
     /**
      *  returns sale
+     * @throws DatabaseUnavailableException to indicate that the database is offline
      */
     public ArrayList<Sale> showAccounting(){
         if (accountingStatus == 1){
