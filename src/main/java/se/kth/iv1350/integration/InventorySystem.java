@@ -2,6 +2,7 @@ package se.kth.iv1350.integration;
 
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.DTO.ItemDTO;
+import se.kth.iv1350.model.DTO.SaleDTO;
 import se.kth.iv1350.model.StoreItem;
 
 import java.util.Collection;
@@ -68,10 +69,10 @@ public class InventorySystem
      * If new quantity is less than or equal to 0, remove the item
      * If new quantity is positive, update the item in the map
      *
-     * @param boughtItems represent ShoppingCart during the sale
+     * @param saleDetails represent the sale details during the sale
      */
-    public void updateInventory( Collection<StoreItem> boughtItems) {
-        for (StoreItem item : boughtItems ) {
+    public void updateInventory( SaleDTO saleDetails ) {
+        for (StoreItem item : saleDetails.getAllItems() ) {
 
             StoreItem itemInStore = getItemById(item.getItemID());
             if (item.equals(itemInStore)){

@@ -40,7 +40,7 @@ public class View {
         contr.fetchItem("orange", 1);
         contr.fetchItem("BigWheel Oatmeal", 1);
 
-        for (StoreItem item : contr.ShoppingCartItem()) {
+        for (StoreItem item : contr.saleDetails().getAllItems()) {
             out.println("--------------  " + item.getItemDetails().getName().toUpperCase() + "  ----------------");
             out.println("Add "+ item.getQuantity()+" item with item id: " +  item.getItemID());
             out.println("Item ID: " + item.getItemID());

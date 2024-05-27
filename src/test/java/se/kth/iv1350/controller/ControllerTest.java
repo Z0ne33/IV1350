@@ -32,7 +32,7 @@ public class ControllerTest {
     public void testFetchItem(String testID) {
         instanceToTest.fetchItem(testID, quantityTest);
         boolean expResult = true;
-        assertEquals(expResult, instanceToTest.getSale().getSaleDetails().checkItem(testID));
+        assertEquals(expResult, instanceToTest.checkCart(testID));
     }
     @Test
     public void testFetchQuantityTooHigh() {
@@ -40,14 +40,14 @@ public class ControllerTest {
         String itemID = "apple";
         instanceToTest.fetchItem(itemID, quantityTest);
         boolean expResult = false;
-        assertEquals(expResult, instanceToTest.getSale().getSaleDetails().checkItem(itemID));
+        assertEquals(expResult, instanceToTest.checkCart(itemID));
     }
     @Test
     public void testFetchItemWithWrongID() {
         String itemID = "HDHH";
         instanceToTest.fetchItem(itemID, quantityTest);
         boolean expResult = false;
-        assertEquals(expResult, instanceToTest.getSale().getSaleDetails().checkItem(itemID));
+        assertEquals(expResult, instanceToTest.checkCart(itemID));
 
 
     }

@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.DTO.ItemDTO;
+import se.kth.iv1350.model.DTO.SaleDTO;
 import se.kth.iv1350.model.Sale;
 import se.kth.iv1350.model.StoreItem;
 
@@ -19,16 +20,16 @@ public class InventoryTest {
     private InventorySystem instanceToTest;
     private StoreItem testItem1;
     private StoreItem testItem2;
-    private Collection<StoreItem> boughtItemsTest;
+    private SaleDTO boughtItemsTest;
     @BeforeEach
     public void setUp() {
         instanceToTest = new InventorySystem();
-        boughtItemsTest = new ArrayList<>();
+        boughtItemsTest = new SaleDTO();
         instanceToTest.createItem();
         testItem1 = new StoreItem(null,"apple",  2, 0.25);
         testItem2 = new StoreItem(null, "orange", 2, 0.25);
-        boughtItemsTest.add(testItem1);
-        boughtItemsTest.add(testItem2);
+        boughtItemsTest.addToCart(testItem1);
+        boughtItemsTest.addToCart(testItem2);
 
     }
     @AfterEach

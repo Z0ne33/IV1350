@@ -4,6 +4,7 @@ import se.kth.iv1350.integration.AccountingSystem;
 import se.kth.iv1350.integration.InventorySystem;
 import se.kth.iv1350.integration.Printer;
 import se.kth.iv1350.model.Amount;
+import se.kth.iv1350.model.DTO.SaleDTO;
 import se.kth.iv1350.model.Receipt;
 import se.kth.iv1350.model.Sale;
 import se.kth.iv1350.model.StoreItem;
@@ -36,14 +37,12 @@ public class Controller {
         sale = new Sale();
         inventory.createItem();
 
-    }
-    /**
-     *
-     *  Function return a Collection of StoreItems that it represent All items That was added to the cart
-     *
+    } /**
+     * Sends saleDetails
      */
-    public Collection<StoreItem> ShoppingCartItem(){
-        return sale.getSaleDetails().getAllItems();
+
+    public SaleDTO saleDetails(){
+        return sale.getSaleDetails();
 
     }
     /**
@@ -51,7 +50,7 @@ public class Controller {
      * The Function is called when the Sale has ended and updates Inventory and accounting
      */
     public void endSale(){
-        inventory.updateInventory(ShoppingCartItem());
+        inventory.updateInventory(saleDetails());
         accounting.updateAccounting(sale);
 
     }
@@ -90,9 +89,9 @@ public class Controller {
     }
 
     /**
-     * Sends Sale mainly used during unit Test
+     * Sends boolean that Checks if item exist in cart mainly used during unit Test
      */
-    public Sale getSale() {
-        return sale;
+    public boolean checkCart (String ID) {
+        return sale.getSaleDetails().checkItem(ID);
     }
 }

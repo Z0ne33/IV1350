@@ -28,7 +28,7 @@ public class Sale {
      */
     public void addItem( StoreItem item, int quantity ){
         if (saleDetails.checkItem(item.getItemID())){
-            saleDetails.increaseAmount(item, quantity);
+            increaseAmount(item, quantity);
         }
         else{
             item.setQuantity(quantity);
@@ -49,7 +49,7 @@ public class Sale {
      * @param payment is the amount that was paid
      */
     public Amount addPayment(Amount payment){
-        saleDetails.setTotal();
+        setTotal();
         this.pay = new Payment(payment, saleDetails.getTotalPrice());
         register.addToRegister(pay);
         return pay.getChange();
@@ -69,6 +69,27 @@ public class Sale {
         receipt = new Receipt(this);
         return receipt;
     }
+    /**
+     * Function takes in item searches for it and increases its quantity
+     *
+     * @param item is the item that is taken in
+     * @param quantity is the quantity that is taken in
+     */
 
+    public void increaseAmount(StoreItem item , int quantity){
+        saleDetails.getShoppingCartItemById(item.getItemID()).setQuantity(item.getQuantity() + quantity);
+    }
+    /**
+     * sets the total for the sale based on all items that was bought during sale
+     */
+    public void setTotal(){
+        for (StoreItem item : saleDetails.getAllItems()) {
+
+            saleDetails.setTotalPrice(saleDetails.getTotalPrice().addition(new Amount((item.getItemDetails().getPrice().getAmount() * (1 + item.getVatRate())) * item.getQuantity())));
+            saleDetails.setTotalPriceNoVAT(saleDetails.getTotalPriceNoVAT().addition(new Amount(item.getItemDetails().getPrice().getAmount() * item.getQuantity())));
+        }
+        saleDetails.setTotalVAT(saleDetails.getTotalPrice().minus(saleDetails.getTotalPriceNoVAT()));
+
+    }
 
 }
