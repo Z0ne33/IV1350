@@ -59,7 +59,7 @@ public class View {
     /**
      * Performs a fake sale, by calling all system operations in the controller.
      */
-    public void Execution() throws OperationFailedException, InvalidItemException {
+    public void Execution() {
 
         StringBuilder builder = new StringBuilder();
 

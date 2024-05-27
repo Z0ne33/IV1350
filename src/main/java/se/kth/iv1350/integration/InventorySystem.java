@@ -78,8 +78,10 @@ public class InventorySystem
      * is used to retrieve Item by id
      *
      * @param itemId is the itemID that is used as a key to retrieve the item
+     *
+     * @throws InvalidItemException to indicate that an itemID is invalid and then is caught in View
      */
-    public StoreItem getItemById(String itemId) throws InvalidItemException {
+    public StoreItem getItemById(String itemId)  throws InvalidItemException{
 
         if (checkItem(itemId)){
             return itemMap.get(itemId);
@@ -129,11 +131,12 @@ public class InventorySystem
      * If new quantity is positive, update the item in the map
      *
      * @param saleDetails are the saleDetails used during sale
+     *
+     * @throws InvalidItemException that an ItemID is invalid and that is later on handled in the controller
      */
     public void updateInventory( SaleDTO saleDetails ) throws InvalidItemException {
         if (inventoryStatus == 1){
             for (StoreItem item : saleDetails.getAllItems() ) {
-
                 StoreItem itemInStore = getItemById(item.getItemID());
                 if (item.equals(itemInStore)){
                     if (itemInStore.getQuantity() == item.getQuantity()) {
@@ -143,9 +146,6 @@ public class InventorySystem
 
                     }
                 }
-
-
-
             }
         }
         else {
@@ -156,4 +156,3 @@ public class InventorySystem
     }
 
 }
-
