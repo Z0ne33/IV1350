@@ -69,9 +69,7 @@ public class SaleDTO
     /**
      * return totalVAT
      */
-    public Amount getTotalVAT() {
-        return totalVAT;
-    }
+    public Amount getTotalVAT() {return totalVAT;}
 
 
     /**
