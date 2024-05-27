@@ -59,7 +59,7 @@ public class View {
     /**
      * Performs a fake sale, by calling all system operations in the controller.
      */
-    public void Execution() throws OperationFailedException, InvalidItemException {
+    public void Execution() {
 
         StringBuilder builder = new StringBuilder();
 
@@ -67,8 +67,10 @@ public class View {
         Amount payment = new Amount(500, "SEK");
 
         contr.startSale();
+        out.println("------------------ NEW SALE --------------------\n \n");
         try{
-            contr.fetchItem("orange", 3);
+
+            contr.fetchItem("apple", 3);
             contr.fetchItem("apple", 1);
             contr.fetchItem("BigWheel Oatmeal", 3);
             contr.fetchItem("apple", 1);

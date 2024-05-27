@@ -61,10 +61,6 @@ public class ControllerTest {
             fail("Database was offline");
         }
 
-
-
-
-
     }
     @Test
     public void testIfPaymentReturnsChange(){

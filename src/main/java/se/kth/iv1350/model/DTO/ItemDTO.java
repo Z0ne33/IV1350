@@ -17,8 +17,6 @@ public class ItemDTO
         this.name = name;
         this.price = price;
         this.description = desc;
-
-
     }
 
     /**

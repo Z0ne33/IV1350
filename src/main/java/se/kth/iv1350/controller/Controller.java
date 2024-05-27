@@ -64,8 +64,11 @@ public class Controller {
     /**
      *
      * The Function is called when the Sale has ended and updates Inventory and accounting
+     * @throws OperationFailedException if a DatabaseUnavailableException occurs
+     *
      */
-    public void endSale() throws InvalidItemException, OperationFailedException {
+
+    public void endSale() throws OperationFailedException {
 
         try {
             inventory.updateInventory(saleDetails());
@@ -74,7 +77,10 @@ public class Controller {
         catch (DatabaseUnavailableException exception){
             errorLogger.log(WarningLevel.WARNING, "Database was unavailable ", exception);
             throw new OperationFailedException("ERROR : Database was Unavailable", exception);
-
+        }
+        catch (InvalidItemException exception){
+            errorLogger.log(WarningLevel.WARNING, "Failed to update Database", exception);
+            throw new OperationFailedException("ERROR : Failed to update database", exception);
         }
 
 
@@ -93,6 +99,9 @@ public class Controller {
      *
      * @param itemID is the Item id that is going to be used in order to fetch Item
      * @param quantity represent the quantity of the item that is needed from the customer
+     *
+     * @throws OperationFailedException if DatabaseUnavailable Occurs
+     * @throws InvalidItemException to indicate that ItemID is invalid
      */
 
     public void fetchItem( String itemID,int quantity) throws OperationFailedException, InvalidItemException {

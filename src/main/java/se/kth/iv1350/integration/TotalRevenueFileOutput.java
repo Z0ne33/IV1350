@@ -2,6 +2,10 @@ package se.kth.iv1350.integration;
 
 import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.SaleObserver;
+import se.kth.iv1350.util.ErrorLogger;
+import se.kth.iv1350.util.WarningLevel;
+import se.kth.iv1350.view.ErrorMessageHandler;
+import se.kth.iv1350.view.TotalRevenue;
 import se.kth.iv1350.view.TotalRevenueView;
 
 import java.io.File;
@@ -9,15 +13,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class TotalRevenueFileOutput implements SaleObserver {
+public class TotalRevenueFileOutput extends TotalRevenue {
     private PrintWriter logStream;
-    private Amount totalRevenue;
+    private ErrorLogger errorLogger;
 
     /**
      * Constructor is used to create and instantiate TotalRevenueFileOutput
      */
     public TotalRevenueFileOutput(){
-        totalRevenue = new Amount(0, "SEK");
+        errorLogger = new ErrorLogger();
         try{
             logStream = new PrintWriter(new FileWriter("revenueLog.txt"), true);
         }
@@ -29,16 +33,22 @@ public class TotalRevenueFileOutput implements SaleObserver {
     /**
      * Overrides the newSale function which it inherited from SaleObserver
      */
+
     @Override
-    public void newSale( Amount paidAmount ) {
-        totalRevenue = totalRevenue.addition(paidAmount);
-        log("Total Revenue: " + this.totalRevenue.getAmount() + (this.totalRevenue.getCurrency() != null ? ", Currency: " + this.totalRevenue.getCurrency() : ""));
+    protected void doShowTotalIncome() throws Exception {
+        log("Total Revenue: " + totRevenue.getAmount() + (totRevenue.getCurrency() != null ? ", Currency: " + totRevenue.getCurrency() : ""));
     }
+
+    @Override
+    protected void handleErrors( Exception e ) {
+       errorLogger.log(WarningLevel.WARNING, "an error occurred during the handling of total revenue", e);
+    }
+
     /**
      * function prints a message a file
      * @param message function takes in a message
      */
-    public void log(String message){
+    private void log(String message){
         logStream.println(message);
     }
 }
