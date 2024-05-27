@@ -31,40 +31,29 @@ public class SaleDTO
 
     }
 
-
     /**
      * we set the TotalVAT
      */
-    public void setTotalVAT( Amount totalVAT ) {
-        this.totalVAT = totalVAT;
-    }
+    public void setTotalVAT( Amount totalVAT ) {this.totalVAT = totalVAT;}
     /**
      * we set the TotalpriceNoVAT
      */
-    public void setTotalPriceNoVAT( Amount totalPriceNoVAT ) {
-        this.totalPriceNoVAT = totalPriceNoVAT;
-    }
+    public void setTotalPriceNoVAT( Amount totalPriceNoVAT ) {this.totalPriceNoVAT = totalPriceNoVAT;}
 
     /**
      * we set the totalPrice
      */
-    public void setTotalPrice( Amount totalPrice ) {
-        this.totalPrice = totalPrice;
-    }
+    public void setTotalPrice( Amount totalPrice ) {this.totalPrice = totalPrice;}
 
     /**
      * we get TotalPrice
      */
-    public Amount getTotalPriceNoVAT() {
-        return totalPriceNoVAT;
-    }
+    public Amount getTotalPriceNoVAT() {return totalPriceNoVAT;}
 
     /**
      * return totalPrice
      */
-    public Amount getTotalPrice() {
-        return totalPrice;
-    }
+    public Amount getTotalPrice() {return totalPrice;}
 
     /**
      * return totalVAT
