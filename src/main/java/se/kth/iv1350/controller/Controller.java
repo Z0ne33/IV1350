@@ -7,9 +7,6 @@ import se.kth.iv1350.model.Amount;
 import se.kth.iv1350.model.DTO.SaleDTO;
 import se.kth.iv1350.model.Receipt;
 import se.kth.iv1350.model.Sale;
-import se.kth.iv1350.model.StoreItem;
-
-import java.util.Collection;
 
 /**
  * This is the application's only controller. All calls to the model pass through this class.
@@ -19,6 +16,7 @@ public class Controller {
     private Printer printer;
     private InventorySystem inventory;
     private AccountingSystem accounting;
+
 
     /**
      * Is Used for Creating a new contr obj
@@ -42,6 +40,7 @@ public class Controller {
      */
 
     public SaleDTO saleDetails(){
+
         return sale.getSaleDetails();
 
     }
@@ -72,10 +71,7 @@ public class Controller {
 
     public void fetchItem( String itemID,int quantity){
 
-        if (inventory.checkItem(itemID) && inventory.getItemById(itemID).getQuantity() > quantity){
             sale.addItem(inventory.getItemById(itemID), quantity);
-        }
-
 
     }
 
@@ -92,6 +88,13 @@ public class Controller {
      * Sends boolean that Checks if item exist in cart mainly used during unit Test
      */
     public boolean checkCart (String ID) {
-        return sale.getSaleDetails().checkItem(ID);
+        return sale.getSaleDetails().getCheckItem(ID);
     }
+    /**
+     * sets running total
+     */
+    public void setRunningTotal(){
+        sale.setTotal();
+    }
+
 }

@@ -2,6 +2,9 @@ package se.kth.iv1350.model;
 
 import se.kth.iv1350.model.DTO.SaleDTO;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * One single sale made by one single customer and payed with one payment.
  */
@@ -11,13 +14,21 @@ public class Sale {
     private SaleDTO saleDetails;
     private Payment pay;
     private Register register;
-    
+    private Amount totalPrice;
+    private Amount totalVAT;
+    private Amount paidAmount;
+    private Map<String, StoreItem> shoppingCart;
+
+
     /**
      * Creates a new instance and saves the time of the sale.
      */
 
     public Sale() {
-       saleDetails = new SaleDTO();
+        totalPrice = new Amount(0);
+        totalVAT = new Amount(0);
+        paidAmount = new Amount(0);
+        shoppingCart = new HashMap<>();
        register = new Register();
     }
     /**
@@ -27,13 +38,14 @@ public class Sale {
      * @param quantity is the quantity of items that you want to add
      */
     public void addItem( StoreItem item, int quantity ){
-        if (saleDetails.checkItem(item.getItemID())){
+        if (shoppingCart.containsKey(item.getItemID())){
             increaseAmount(item, quantity);
         }
         else{
             item.setQuantity(quantity);
-            saleDetails.addToCart(item);
+            addToCart(item);
         }
+
 
     }
 
@@ -49,7 +61,6 @@ public class Sale {
      * @param payment is the amount that was paid
      */
     public Amount addPayment(Amount payment){
-        setTotal();
         this.pay = new Payment(payment, saleDetails.getTotalPrice());
         register.addToRegister(pay);
         return pay.getChange();
@@ -77,19 +88,29 @@ public class Sale {
      */
 
     public void increaseAmount(StoreItem item , int quantity){
-        saleDetails.getShoppingCartItemById(item.getItemID()).setQuantity(item.getQuantity() + quantity);
+        shoppingCart.get(item.getItemID()).setQuantity(item.getQuantity() + quantity);
     }
     /**
      * sets the total for the sale based on all items that was bought during sale
      */
     public void setTotal(){
-        for (StoreItem item : saleDetails.getAllItems()) {
+        Amount totalPriceNoVAT = new Amount(0);
+        for (StoreItem item : shoppingCart.values()) {
 
-            saleDetails.setTotalPrice(saleDetails.getTotalPrice().addition(new Amount((item.getItemDetails().getPrice().getAmount() * (1 + item.getVatRate())) * item.getQuantity())));
-            saleDetails.setTotalPriceNoVAT(saleDetails.getTotalPriceNoVAT().addition(new Amount(item.getItemDetails().getPrice().getAmount() * item.getQuantity())));
+            totalPrice = totalPrice.addition(new Amount((item.getItemDetails().getPrice().getAmount() * (1 + item.getVatRate())) * item.getQuantity()));
+            totalPriceNoVAT = totalPriceNoVAT.addition(new Amount(item.getItemDetails().getPrice().getAmount() * item.getQuantity()));
         }
-        saleDetails.setTotalVAT(saleDetails.getTotalPrice().minus(saleDetails.getTotalPriceNoVAT()));
+        totalVAT = totalPrice.minus(totalPriceNoVAT);
+        saleDetails = new SaleDTO(shoppingCart, totalVAT, totalPrice);
 
     }
+
+    /**
+     * function adds Item to the Shopping Cart
+     *
+     * @param item is the item that will be added into The ShoppingCart
+     */
+    public void addToCart( StoreItem item){shoppingCart.put(item.getItemID(), item);}
+
 
 }

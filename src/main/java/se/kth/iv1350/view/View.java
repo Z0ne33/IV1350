@@ -34,11 +34,12 @@ public class View {
 
 
         contr.fetchItem("orange", 3);
-        contr.fetchItem("apple", 1);
+        contr.fetchItem("apple", 2);
+        contr.fetchItem("apple", 2);
         contr.fetchItem("BigWheel Oatmeal", 3);
-        contr.fetchItem("apple", 1);
         contr.fetchItem("orange", 1);
         contr.fetchItem("BigWheel Oatmeal", 1);
+        contr.setRunningTotal();
 
         for (StoreItem item : contr.saleDetails().getAllItems()) {
             out.println("--------------  " + item.getItemDetails().getName().toUpperCase() + "  ----------------");

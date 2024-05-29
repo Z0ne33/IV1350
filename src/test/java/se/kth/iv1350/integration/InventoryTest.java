@@ -20,16 +20,18 @@ public class InventoryTest {
     private InventorySystem instanceToTest;
     private StoreItem testItem1;
     private StoreItem testItem2;
-    private SaleDTO boughtItemsTest;
+    private Sale boughtItemsTest;
     @BeforeEach
     public void setUp() {
         instanceToTest = new InventorySystem();
-        boughtItemsTest = new SaleDTO();
+
         instanceToTest.createItem();
-        testItem1 = new StoreItem(null,"apple",  2, 0.25);
-        testItem2 = new StoreItem(null, "orange", 2, 0.25);
+        testItem1 = new StoreItem(new ItemDTO("test1", new Amount(1), "test1"),"apple",  2, 0.25);
+        testItem2 = new StoreItem(new ItemDTO("test2", new Amount(1), "test2"), "orange", 2, 0.25);
+        boughtItemsTest = new Sale();
         boughtItemsTest.addToCart(testItem1);
         boughtItemsTest.addToCart(testItem2);
+        boughtItemsTest.setTotal();
 
     }
     @AfterEach
@@ -43,7 +45,7 @@ public class InventoryTest {
     @ValueSource(strings = {"apple","orange"})
     public void updateInventoryTest(String itemID) {
         int expResults = instanceToTest.getItemById(itemID).getQuantity() - 2;
-        instanceToTest.updateInventory(boughtItemsTest);
+        instanceToTest.updateInventory(boughtItemsTest.getSaleDetails());
         StoreItem item = instanceToTest.getItemById(itemID);
         assertEquals(expResults, item.getQuantity());
 
@@ -52,7 +54,7 @@ public class InventoryTest {
     public void updateInventoryRemoveItemTest() {
         String itemID = "apple";
         testItem1.setQuantity(8);
-        instanceToTest.updateInventory(boughtItemsTest);
+        instanceToTest.updateInventory(boughtItemsTest.getSaleDetails());
         boolean results = instanceToTest.checkItem(itemID);
         boolean expResult = false;
         assertEquals(expResult, results );

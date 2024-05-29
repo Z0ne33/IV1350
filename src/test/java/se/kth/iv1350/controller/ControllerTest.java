@@ -31,6 +31,7 @@ public class ControllerTest {
     @ValueSource(strings = {"apple","orange", "BigWheel Oatmeal"})
     public void testFetchItem(String testID) {
         instanceToTest.fetchItem(testID, quantityTest);
+        instanceToTest.setRunningTotal();
         boolean expResult = true;
         assertEquals(expResult, instanceToTest.checkCart(testID));
     }
@@ -39,6 +40,7 @@ public class ControllerTest {
         quantityTest = 20;
         String itemID = "apple";
         instanceToTest.fetchItem(itemID, quantityTest);
+        instanceToTest.setRunningTotal();
         boolean expResult = false;
         assertEquals(expResult, instanceToTest.checkCart(itemID));
     }
@@ -46,6 +48,7 @@ public class ControllerTest {
     public void testFetchItemWithWrongID() {
         String itemID = "HDHH";
         instanceToTest.fetchItem(itemID, quantityTest);
+        instanceToTest.setRunningTotal();
         boolean expResult = false;
         assertEquals(expResult, instanceToTest.checkCart(itemID));
 
@@ -56,6 +59,7 @@ public class ControllerTest {
         String itemID = "apple";
         quantityTest = 1;
         instanceToTest.fetchItem(itemID, quantityTest);
+        instanceToTest.setRunningTotal();
         Amount payment = new Amount(12.5, "SEK");
         Amount change = instanceToTest.payment(payment);
         Amount expResult = new Amount(0);

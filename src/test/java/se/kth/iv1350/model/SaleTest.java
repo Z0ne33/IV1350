@@ -1,13 +1,10 @@
 package se.kth.iv1350.model;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import se.kth.iv1350.model.DTO.ItemDTO;
-import se.kth.iv1350.startup.Main;
 
 public class SaleTest {
 
@@ -32,12 +29,14 @@ public class SaleTest {
     @Test
     public void testIfItemIsAddedToCart() {
         instanceToTest.addItem(testItem, testQuantity);
+        instanceToTest.setTotal();
         boolean expResult = true;
-        assertEquals(expResult, instanceToTest.getSaleDetails().checkItem(testItem.getItemID()));
+        assertEquals(expResult, instanceToTest.getSaleDetails().getCheckItem(testItem.getItemID()));
     }
     @Test
     public void testIfIncreaseQuantity() {
         instanceToTest.addItem(testItem, testQuantity);
+        instanceToTest.setTotal();
         double expResult = testItem.getQuantity() + testQuantity;
         instanceToTest.addItem(testItem, testQuantity);
         assertEquals(expResult, testItem.getQuantity());
@@ -45,6 +44,7 @@ public class SaleTest {
     @Test
     public void hasCorrectTotalCostTest(){
         instanceToTest.addItem(testItem, 1);
+        instanceToTest.setTotal();
         instanceToTest.addPayment(testPayment);
         double testVAT = 1 + testItem.getVatRate();
         int quantity = testItem.getQuantity();
