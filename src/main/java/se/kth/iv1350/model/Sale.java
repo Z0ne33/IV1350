@@ -3,7 +3,9 @@ package se.kth.iv1350.model;
 import se.kth.iv1350.model.DTO.SaleDTO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * One single sale made by one single customer and payed with one payment.
@@ -13,10 +15,15 @@ public class Sale {
     private Receipt receipt;
     private SaleDTO saleDetails;
     private Payment pay;
-    private Amount discount;
     private Register register;
+    private Amount totalPrice;
+    private Amount totalVAT;
+    private Amount discount;
+    private Map<String, StoreItem> shoppingCart;
     List<SaleObserver> saleObs = new ArrayList<>();
     private boolean signalDiscount = false;
+    private ArrayList<String> costumers;
+    private String currentCustomer;
 
     public void setSignalDiscount( boolean signalDiscount ) {
         this.signalDiscount = signalDiscount;
@@ -27,9 +34,12 @@ public class Sale {
      */
 
     public Sale() {
-       saleDetails = new SaleDTO();
-       register = new Register();
-
+        totalPrice = new Amount(0);
+        totalVAT = new Amount(0);
+        costumers = new ArrayList<>();
+        currentCustomer = "";
+        shoppingCart = new HashMap<>();
+        register = new Register();
     }
     /**
      * function adds and item the shopping cart if it already is present increase amount
@@ -38,13 +48,14 @@ public class Sale {
      * @param quantity is the quantity of items that you want to add
      */
     public void addItem( StoreItem item, int quantity ){
-        if (saleDetails.checkItem(item.getItemID())){
+        if (shoppingCart.containsKey(item.getItemID())){
             increaseAmount(item, quantity);
         }
         else{
             item.setQuantity(quantity);
-            saleDetails.addToCart(item);
+            addToCart(item);
         }
+
 
     }
 
@@ -63,7 +74,6 @@ public class Sale {
 
         this.pay = new Payment(payment, saleDetails.getTotalPrice());
         register.addToRegister(pay);
-
         notifyObservers();
         return pay.getChange();
 
@@ -92,7 +102,7 @@ public class Sale {
      */
 
     public void increaseAmount(StoreItem item , int quantity){
-        saleDetails.getShoppingCartItemById(item.getItemID()).setQuantity(item.getQuantity() + quantity);
+        shoppingCart.get(item.getItemID()).setQuantity(item.getQuantity() + quantity);
     }
 
     /**
@@ -122,14 +132,21 @@ public class Sale {
      * sets the total for the sale based on all items that was bought during sale
      */
     public void setTotal(){
-        for (StoreItem item : saleDetails.getAllItems()) {
+        Amount totalPriceNoVAT = new Amount(0);
+        for (StoreItem item : shoppingCart.values()) {
 
-            saleDetails.setTotalPrice(saleDetails.getTotalPrice().addition(new Amount((item.getItemDetails().getPrice().getAmount() * (1 + item.getVatRate())) * item.getQuantity())));
-            saleDetails.setTotalPriceNoVAT(saleDetails.getTotalPriceNoVAT().addition(new Amount(item.getItemDetails().getPrice().getAmount() * item.getQuantity())));
+            totalPrice = totalPrice.addition(new Amount((item.getItemDetails().getPrice().getAmount() * (1 + item.getVatRate())) * item.getQuantity()));
+            totalPriceNoVAT = totalPriceNoVAT.addition(new Amount(item.getItemDetails().getPrice().getAmount() * item.getQuantity()));
         }
-        saleDetails.setTotalVAT(saleDetails.getTotalPrice().minus(saleDetails.getTotalPriceNoVAT()));
-
+        totalVAT = totalPrice.minus(totalPriceNoVAT);
+        updateSaleDetails();
     }
+    /**
+     * function adds Item to the Shopping Cart
+     *
+     * @param item is the item that will be added into The ShoppingCart
+     */
+    public void addToCart( StoreItem item){shoppingCart.put(item.getItemID(), item);}
     /**
      * takes in the sum and reduces it from total cost
      *
@@ -138,7 +155,19 @@ public class Sale {
 
     public void discountReduction( Amount discount ) {
         setDiscount(discount);
-        saleDetails.setTotalPrice(saleDetails.getTotalPrice().minus(discount));
+        totalPrice = totalPrice.minus(discount);
+        updateSaleDetails();
+    }
+    private void updateSaleDetails(){
+        saleDetails = new SaleDTO(shoppingCart, totalVAT,totalPrice,costumers, currentCustomer);
+    }
+
+    public void setCurrentCustomer( String currentCustomer ) {
+        this.currentCustomer = currentCustomer;
+    }
+
+    public void addCustomer(String currentCustomer){
+        costumers.add(currentCustomer);
     }
     public boolean getSignalDiscount(){
         return signalDiscount;
@@ -156,4 +185,5 @@ public class Sale {
     public Amount getDiscount() {
         return discount;
     }
+
 }

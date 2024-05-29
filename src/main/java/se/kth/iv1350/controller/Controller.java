@@ -135,9 +135,9 @@ public class Controller {
      */
     public void signalDiscount(String costumerID, DiscountIDs discountID){
         sale.setSignalDiscount(true);
-        saleDetails().setCurrentCustomer(costumerID);
+        sale.setCurrentCustomer(costumerID);
         sale.discountReduction(discountDatabase.getDiscountByID(saleDetails(), discountID));
-        saleDetails().addToCostumers(costumerID);
+        sale.addCustomer(costumerID);
 
     }
     public void setRunningTotal(){

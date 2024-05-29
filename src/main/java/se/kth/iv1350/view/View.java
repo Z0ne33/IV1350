@@ -75,15 +75,18 @@ public class View {
             contr.fetchItem("orange", 1);
             contr.fetchItem("BigWheel Oatmeal", 1);
 
+            contr.setRunningTotal();
+            contr.signalDiscount("ID", DiscountIDs.FirstTime);
+
             for (StoreItem item : contr.saleDetails().getAllItems()) {
                 printInfo(item, builder);
             }
-            contr.setRunningTotal();
+
             contr.endSale();
             out.println("Customer pays "  + payment.getAmount() + "" + payment.getCurrency().getCurrencyCode());
             out.println("Sent sale info to external accounting system.");
             out.println(builder);
-            contr.signalDiscount("ID", DiscountIDs.FirstTime);
+
             Amount change = contr.payment(payment);
 
             contr.printReciept();

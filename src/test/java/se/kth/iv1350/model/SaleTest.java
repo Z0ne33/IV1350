@@ -32,6 +32,7 @@ public class SaleTest {
     @Test
     public void testIfItemIsAddedToCart() {
         instanceToTest.addItem(testItem, testQuantity);
+        instanceToTest.setTotal();
         boolean expResult = true;
         assertEquals(expResult, instanceToTest.getSaleDetails().checkItem(testItem.getItemID()));
     }
@@ -45,6 +46,7 @@ public class SaleTest {
     @Test
     public void hasCorrectTotalCostTest(){
         instanceToTest.addItem(testItem, 1);
+        instanceToTest.setTotal();
         instanceToTest.addPayment(testPayment);
         double testVAT = 1 + testItem.getVatRate();
         int quantity = testItem.getQuantity();

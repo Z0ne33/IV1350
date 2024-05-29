@@ -35,6 +35,7 @@ public class ControllerTest {
 
         try {
             instanceToTest.fetchItem(testID, quantityTest);
+            instanceToTest.setRunningTotal();
             assertEquals(true, instanceToTest.checkCart(testID));
 
         }
