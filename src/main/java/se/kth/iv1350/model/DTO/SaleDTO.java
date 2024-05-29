@@ -33,9 +33,7 @@ public class SaleDTO
     /**
      * return totalPrice
      */
-    public Amount getTotalPrice() {
-        return totalPrice;
-    }
+    public Amount getTotalPrice() {return totalPrice;}
 
     /**
      * return totalVAT
@@ -47,8 +45,7 @@ public class SaleDTO
     /**
      * returns a collection all items Present in the Shopping cart
      */
-    public Collection<StoreItem> getAllItems(){return shoppingCart.values();}
-
+    public Collection<StoreItem> getAllItems(){return Collections.unmodifiableCollection(shoppingCart.values());}
 
     /**
      * Checks if itemID is present in the shoppingCart
