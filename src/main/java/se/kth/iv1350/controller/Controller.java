@@ -40,7 +40,6 @@ public class Controller {
      */
 
     public SaleDTO saleDetails(){
-
         return sale.getSaleDetails();
 
     }

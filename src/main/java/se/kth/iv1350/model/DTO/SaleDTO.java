@@ -38,7 +38,10 @@ public class SaleDTO
     /**
      * returns a collection all items Present in the Shopping cart
      */
-    public Collection<StoreItem> getAllItems(){return shoppingCart.values();}
+    public Collection<StoreItem> getAllItems()
+    {
+        return Collections.unmodifiableCollection(shoppingCart.values());
+    }
 
 
     /**
