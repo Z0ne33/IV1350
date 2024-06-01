@@ -9,8 +9,8 @@ public class Main {
 
         int evenRandNumInh = new EvenRandomUsingInheritance().nextInt(29);
         int evenRandNumComp = new EvenRandomUsingComposition().nextInt(29);
-        System.out.println(evenRandNumInh);
-        System.out.println(evenRandNumComp);
+        System.out.println("Even random that was printed using Inheritance: " + evenRandNumInh);
+        System.out.println("Even random that was printed using Composition: " + evenRandNumComp);
 
 
     }
