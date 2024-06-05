@@ -5,14 +5,15 @@ import se.kth.iv1350.model.SaleObserver;
 
 public abstract class TotalRevenue implements SaleObserver {
     protected Amount totRevenue;
-    protected ErrorMessageHandler errorMessageHandler;
     protected TotalRevenue() {
         totRevenue = new Amount(0);
-
+    }
+    private void calculateTotalIncome(Amount priceOfTheSaleThatWasJustMade){
+        totRevenue = totRevenue.addition(priceOfTheSaleThatWasJustMade);
     }
     @Override
     public void newSale( Amount paidAmount ) {
-        totRevenue =  totRevenue.addition(paidAmount);
+        calculateTotalIncome(paidAmount); // Calculate the total amount paid since the program started.
         showTotalIncome();
     }
 

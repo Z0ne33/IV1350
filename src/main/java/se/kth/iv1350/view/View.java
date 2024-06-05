@@ -73,7 +73,7 @@ public class View {
             contr.fetchItem("apple", 3);
             contr.fetchItem("apple", 1);
             contr.fetchItem("BigWheel Oatmeal", 3);
-            contr.fetchItem("apple", 1);
+            contr.fetchItem("apple", 3);
             contr.fetchItem("orange", 1);
             contr.fetchItem("BigWheel Oatmeal", 1);
 
