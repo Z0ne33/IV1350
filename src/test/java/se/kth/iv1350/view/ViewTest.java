@@ -73,7 +73,6 @@ public class ViewTest {
         String testDiscount = format("Discount: ", "93.6");
         String testPayment = format("Cash: ", "500.0");
         String testChange = format("Change: ", "281.6");
-
         instanceToTest.Execution();
 
        assertAll(

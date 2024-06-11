@@ -16,6 +16,7 @@ import java.io.PrintStream;
 
 import static java.lang.System.out;
 import static java.lang.System.setOut;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PrinterTest {
@@ -37,11 +38,20 @@ public class PrinterTest {
         outputStream = null;
     }
     @Test
-    public void errorMsgTest() {
+    public void printerTest() {
         instanceToTest.startSale();
         instanceToTest.setRunningTotal();
         instanceToTest.payment(new Amount(0));
         instanceToTest.printReciept();
-        assertTrue(outputStream.toString().toLowerCase().contains("receipt"));
+        assertAll(
+                () -> assertTrue(outputStream.toString().toLowerCase().contains("begin receipt")),
+                () -> assertTrue(outputStream.toString().toLowerCase().contains("total: 0.0")),
+                () -> assertTrue(outputStream.toString().toLowerCase().contains("total vat: 0.0")),
+                () -> assertTrue(outputStream.toString().toLowerCase().contains("change: 0.0")),
+                () -> assertTrue(outputStream.toString().toLowerCase().contains("cash: 0.0")),
+                () -> assertTrue(outputStream.toString().toLowerCase().contains("sale time:")),
+                () -> assertTrue(outputStream.toString().toLowerCase().contains("end receipt"))
+        );
+
     }
 }
