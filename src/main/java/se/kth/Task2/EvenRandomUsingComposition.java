@@ -3,8 +3,12 @@ package se.kth.Task2;
 import java.util.Random;
 
 public class EvenRandomUsingComposition {
-    private Random random = new Random();
+    private Random random;
     private int evenNum;
+
+    public EvenRandomUsingComposition(){
+        random = new Random();
+    }
 
     public int nextInt(int bound){
         evenNum = random.nextInt(bound);
